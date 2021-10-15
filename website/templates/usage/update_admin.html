@@ -1,0 +1,58 @@
+{% extends "usage/profile.html" %}
+{%block admin%}
+
+
+<div class="col-md-4 hidden-xs hidden-sm">
+
+    <ul class="profile-info-list">
+        <li class="title" style="font-size: 20px !important;">Gestion des PERMISSIONS</li>
+        <li>
+            <div class="field">Permissions actulles :</div>
+            <div class="value">
+                {% for perm in user.perm %}
+                    {{perm.perm}},<br>
+                {%endfor%}
+            </div>
+        </li>
+        <li>
+            <form action='{{request.url}}' method="POST">
+            <div class="field">Definir Les Nouveaux Permission:</div>
+
+            <link rel="stylesheet "type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+            <!--script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script-->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+            
+            <select id="perm" class="selectpicker" multiple data-live-search="true">
+              <option>ADMIN</option>
+              <option>R1</option>
+              <option>R2</option>
+              <option>R3</option>
+              <option>R4</option>
+              <option>R5</option>
+            </select>
+            <br>
+            <input onClick="send()" type="submit" class="btn btn-xs btn-primary mb-3" style="margin-top: 5px;margin-left: 0px;" value="Modifier">
+            <input type="text" name="Permission" id="Permission" hidden>
+            </form>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+$(document).ready(function()
+    {
+ $(".selectpicker").selectpicker(); 
+s
+
+});
+function send()
+        {
+            document.getElementById('Permission').value = $("#perm").val()
+        }
+
+</script>
+
+{%endblock%}

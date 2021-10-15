@@ -1,0 +1,144 @@
+{% extends "base_menu.html" %}
+{%block t_l%}
+<title> Locomotion </title>
+<link rel = "stylesheet" href="{{url_for('static',filename='css/grides.css')}}">
+{%endblock%} 
+{%block main%}
+  <style>
+    #ok {
+      padding-top: 30px;
+    }
+  </style>
+
+  <main>
+      <div class="cards">
+        <div class="card-single">
+          <div>
+            <h1>100</h1>
+            <span>Nombre d'employés</span>
+          </div>
+          <div>
+            <span class="las la-users"></span>
+          </div>
+        </div>
+        <div class="card-single">
+          <div>
+            <h1>50</h1>
+            <span>Nombre de véhicules</span>
+          </div>
+          <div>
+            <span class="fas fa-car-side"></span>
+          </div>
+        </div>
+        <div class="card-single">
+          <div>
+            <h1>15</h1>
+            <span>Nombre de chauffeurs</span>
+          </div>
+          <div>
+            <span class="fas fa-user-alt"></span>
+          </div>
+        </div>
+      
+      </div>
+      <div class="col-xs-10 col-sm-6 col-md-6" id="ok">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container" style="position: relative;">
+                    <canvas id="emp_vs_chauff"></canvas>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-xs-10 col-sm-6 col-md-6" id="ok">
+        <div class="card card-style mb-2">
+            <div class="card-body">
+                <div class="chart-container" style="position: relative;">
+                    <canvas id="vehp_vs_vehm"></canvas>
+                </div>
+            </div>
+        </div>
+      </div>
+    
+
+      {% block javascript %}
+      <script>
+          let emp_vs_chauff_chart = new Chart(emp_vs_chauff, {
+              type: 'pie',
+              data: {
+              labels: ['Employé avec véhicule', 'Employé sans véhicule','chaffeurs'],
+                  datasets: [{
+                      label: "Income Vs Expenses",
+                      data: [25,55,10],
+                      backgroundColor: ['#B276B2', 'rgb(223, 199, 66)', '#5DA5DA',
+                        '#FAA43A', '#60BD68'],
+
+                      borderWidth: 1,
+                      hoverBorderColor: "black",
+                      hoverBorderWidth: 2,
+                      hoverBackgroundColor: 'rgba(154, 245, 140)',
+                      pointHoverRadius: 5
+                  }],
+              },
+              options: {
+                      title: {
+                          display: true,
+                              text: "Income Vs Expenses",
+                                  fontSize: 20,
+                      },
+                      legend: {
+                          position: "right",
+                              labels: {
+                              fontColor: "gray"
+                          },
+                          display: true,
+                      },
+
+                      elements: {
+                          hitRadius: 3,
+                      }
+              }
+          })
+
+
+          //vehicules march vs affected
+          let vehp_vs_vehm_chart = new Chart(vehp_vs_vehm, {
+              type: 'pie',
+              data: {
+              labels: ['véhicule affecté', 'véhicule marchandise','véhicule libre','véhicule en réparation'],
+                  datasets: [{
+                      label: "Income Vs Expenses",
+                      data: [25,5,3,2],
+                      backgroundColor: ['#5DA5DA ', '#FAA43A', 'rgb(241, 170, 224)',
+                          'red', '#E16851', '#FB8267', '#60BD68'],
+
+                      borderWidth: 1,
+                      hoverBorderColor: "black",
+                      hoverBorderWidth: 2,
+                      hoverBackgroundColor: 'rgba(154, 245, 140)',
+                      pointHoverRadius: 5
+                  }],
+              },
+              options: {
+                      title: {
+                          display: true,
+                              text: "Income Vs Expenses",
+                                  fontSize: 20,
+                      },
+                      legend: {
+                          position: "right",
+                              labels: {
+                              fontColor: "gray"
+                          },
+                          display: true,
+                      },
+
+                      elements: {
+                          hitRadius: 3,
+                      }
+              }
+          })
+      </script>
+      {%endblock%}
+</main>
+{%endblock%} 

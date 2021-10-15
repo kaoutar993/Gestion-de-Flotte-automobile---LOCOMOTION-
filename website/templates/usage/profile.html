@@ -1,0 +1,171 @@
+{% extends "base_menu.html" %}
+{%block t_l%}
+    <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <title>profile about info - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{url_for('static',filename='css/Proofile.css')}}" rel="stylesheet">
+    <link href="fontawesome/css/all.css" rel="stylesheet">
+
+{%endblock%}
+{%block main%}    
+<main>
+<div class="container">
+<div id="content" class="content p-0">
+    <div class="profile-header">
+        <div class="profile-header-cover"></div>
+
+        <div class="profile-header-content">
+            <div class="profile-header-img">
+                <img src="{{url_for('static',filename='img/utilisateur.png')}}" alt="" />
+            </div>
+
+            <div class="profile-header-info" >
+                <h4 class="m-t-sm">{{ dtb['current_user'].lastname.upper()+" "+dtb['current_user'].firstname.capitalize()}}</h4>
+                <p class="m-b-sm">{{dtb['current_user'].poste}}</p>
+                <a href="/edit_profile/password" style="color: gold;" class="btn btn-xs btn-primary mb-3">Changer Votre Mot de Passe</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="profile-container">
+        <div class="row row-space-20">
+            <div class="col-md-8">
+                <div class="tab-content p-0">
+                    <div class="tab-pane active show" id="profile-about">
+                        <table class="table table-profile">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">INFORMATIONS PERSONELLES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="field">Nom Complet</td>
+                                    <td class="value">
+                                        {{ dtb['current_user'].lastname.upper()+" "+dtb['current_user'].firstname.capitalize()}}
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Poste</td>
+                                    <td class="value">
+                                        {{dtb['current_user'].poste}}
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Cin</td>
+                                    <td class="value">
+                                        {{dtb['current_user'].cin}}
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Date de Naissance</td>
+                                    <td class="value">
+                                        Attribut Missing
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Sexe</td>
+                                    <td class="value">
+                                        {{dtb['current_user'].gender}}
+                                        
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table> 
+                        <table class="table table-profile">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">INFORMATIONs du compte</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="field">ID d'emploie</td>
+                                    <td class="value">
+                                        {{dtb['current_user'].id}}
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Nom d'utilisateur</td>
+                                    
+                                    <td class="value">
+                                        <pre style="font-size: 17px;font-weight: bold;">{{user.username}}      <a href="/edit_profile/username" style="color: #067591;" class="m-l-10">Modifier</a></pre>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Poste</td>
+                                    <td class="value">
+                                        {{dtb['current_user'].poste}}<br />
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Permissions</td>
+                                    <td class="value">
+                                        {% for perm in user.perm %}
+                                            {{perm.perm}},<br>
+                                        {%endfor%}
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-profile">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">INFORMATIONs CONTACT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="field">Téléphone</td>
+                                    <td class="value">
+                                        {{dtb["current_user"].tel}}
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="field">Email</td>
+                                    <td class="value">
+                                        {{dtb["current_user"].email}}
+                                        
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="field">Address</td>
+                                    <td class="value">
+                                        {{dtb["current_user"].adresse}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            {%block admin%}{%endblock%}
+        </div>
+    </div>
+</div>
+</div>
+</main>
+{%endblock%}
+{%block scriptTables%}
+<script src="jquery/jquery.js"></script>
+<script></script>
+<script></script>
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+</script>
+{%endblock%}

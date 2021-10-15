@@ -1,0 +1,217 @@
+{% extends "base_menu.html" %}
+{%block t_l%}{%endblock%}
+{%block main%} 
+<link rel = "stylesheet" href="{{url_for('static',filename='css/grides.css')}}">
+<main method="post">
+    {% if emp.poste != "chauffeur"%}
+        <div class="col-xs-10 col-sm-6 col-md-6" >
+            <div class="card card-style mb-2" >
+                <div class="card-body" >
+                    <div class="chart-container" style="position: relative; background-color: #fff; border-radius: 5px;">
+                        
+                        <div style="text-align: center;">
+                            <br/>
+                            <img src="{{url_for('static',filename='img/utilisateur.png')}}" width="40px" height="40px" alt="">
+                            <h4>  {{emp.lastname.upper() +" "+ emp.firstname}}</h4>
+                            <small style="color:cornflowerblue ;" >{{emp.poste}}</small> <br/> <br/>
+                        </div>
+                        <div  >
+                            <small style="padding-left: 40px;"> <strong style="color: gold;">  CIN : </strong> {{emp.cin}}</small> <br/>
+                            <small style="padding-left: 40px;"> <strong style="color: gold;"> Numero de telephone : </strong> {{emp.tel}}</small> <br/>
+                            <small style="padding-left: 40px;"> <strong style="color: gold;">  Adresse : </strong> {{emp.adresse}}</small> <br/>
+                            <small style="padding-left: 40px;"> <strong style="color: gold;">  Email : </strong> {{emp.email}}</small> <br/>
+                            <small style="padding-left: 40px;"> </small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        {% if not empa %}
+            <div class="col-xs-10 col-sm-6 col-md-6">
+                <div class="card card-style mb-2">
+                    <div class="card-body">
+                        <div class="chart-container" style="position: relative;  background-color: #fff; height: 272px; border-radius: 5px;" >
+                            <div style="text-align: center;"> <br/> <br/>
+                                <h4 style="color: red;">  Aucun Véhicule affecté pour le moment </h4>
+                                <small style="color:cornflowerblue ;">   </small>  <br/>  
+                            </div>
+                            <div > <br/> <br/> 
+                                <a href="/affecter_veh/{{emp.id}}"><button style="text-align: center ; background-color: #2a879ee8;  margin-left: 130px; width: 250px; height: 50px; border-radius: 5px; color: #fff;"> Affecter un véhicule à l'employé </button> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {%else%}
+            <div class="col-xs-10 col-sm-6 col-md-6">
+                <div class="card card-style mb-2">
+                    <div class="card-body">
+                        <div class="chart-container" style="position: relative;  background-color: #fff; height: 272px; border-radius: 5px;" >
+                            <div style="text-align: center;">
+                                <br/>
+                                <h4>  Véhicule affecté </h4>
+                                <small style="color:cornflowerblue ;">  Depuis : {{empa.date_affect}}</small>  <br/>  
+                            </div>
+                            <div  >
+                                {%if vehaa%}
+                                    <small style="padding-left: 40px;"> <strong style="color: gold;">   Matricule : </strong> {{vehaa.matricule}} </small> <br/>
+                                    <small style="padding-left: 40px;"> <strong style="color: gold;">  Marque : </strong> {{vehaa.marque}}</small> <br/>
+                                    <small style="padding-left: 40px;"> <strong style="color: gold;">  Carburant : </strong> {{vehaa.carburant}} </small> <br/>
+                                    <small style="padding-left: 40px;"> <strong style="color: gold;">  Total Km : </strong> {{vehaa.km_parcouru}} </small> <br/> <br/>
+                                    <a href="/aff_veh/{{vehaa.id}}"><button style="text-align: center ; background-color: #2a879ee8;  margin-left: 110px; width: 100px; height: 40px; border-radius: 5px; color: #fff;"> Voir plus </button> </a>
+                                {%endif%}
+                                <a href="/supp_aff/{{emp.id}}"><button style="text-align: center ; background-color:red;   width: 200px; height: 40px; border-radius: 5px; color: #fff;"> Supprimer l'affectation </button> </a><br/>
+                                <small style="padding-left: 40px;"> </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-10 col-sm-6 col-md-6" style="padding-top: 20px;">
+                <div class="card card-style mb-2">
+                    <div class="card-body">
+                        <div class="chart-container" style="position: relative; height: 272px;" >
+                            <canvas id="income_vs_expense"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-10 col-sm-6 col-md-6" style="padding-top: 20px;">
+                <div class="card card-style mb-2">
+                    <div class="card-body">
+                        <div class="chart-container" style="position: relative; height: 272px;" >
+                            <canvas id="gasoil_consome"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+            <!--div class="col-xs-10 col-sm-6 col-md-6" style="padding-top: 50px; margin-left: 300px;">
+                <div class="card card-style mb-2">
+                    <div class="card-body">
+                        <div class="chart-container" style="position: relative;  background-color: #fff; height: 100px; border-radius: 5px;" >
+                            
+                            <div > <br/>
+                                <button style="text-align: center ; background-color: rgb(223, 199, 66);  margin-left: 100px; width: 300px; height: 50px; border-radius: 5px; "> Afficher l'historique des véhicules déjà affectés </button> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div-->
+    {%else%}
+        <div class="col-xs-10 col-sm-6 col-md-6" style="margin-left: 300px;">
+            <div class="card card-style mb-2" >
+                <div class="card-body" >
+                    <div class="chart-container" style="position: relative; background-color: #fff; border-radius: 5px;">
+                        
+                        <div style="text-align: center;">
+                            <br/>
+                            <img src="{{url_for('static',filename='img/chauf.png')}}" width="60px" height="50px" alt="" style="border-radius: 10px;">
+                            <h4>  {{emp.lastname.upper() +" "+ emp.firstname}}</h4>
+                            <small style="color:cornflowerblue ;" >{{emp.poste}}</small> <br/> <br/>
+                        </div>
+                        <div  >
+                            <small style="padding-left: 40px;"> <strong style="color: gold;">  CIN : </strong> {{emp.cin}}</small> <br/>
+                            <small style="padding-left: 40px;"> <strong style="color: gold;"> Numero de telephone : </strong> {{emp.tel}}</small> <br/>
+                            <small style="padding-left: 40px;"> <strong style="color: gold;">  Adresse : </strong> {{emp.adresse}}</small> <br/>
+                            <small style="padding-left: 40px;"> <strong style="color: gold;">  Email : </strong> {{emp.email}}</small> <br/>
+                            <small style="padding-left: 40px;"> </small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-10 col-sm-6 col-md-6" style="padding-top: 50px; margin-left: 300px;">
+            <div class="card card-style mb-2">
+                <div class="card-body">
+                    <div class="chart-container" style="position: relative;  background-color: #fff; height: 100px; border-radius: 5px;" >
+                        
+                        <div > <br/>
+                           <a href="/control_chauf"> <button style="text-align: center ; background-color: rgb(223, 199, 66);  margin-left: 100px; width: 300px; height: 50px; border-radius: 5px; "> Afficher l'historique des voyages  </button> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% block javascript %}
+    <script>
+        var ctx = document.getElementById('income_vs_expense').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin'],
+                datasets: [{
+                    label: 'KMs Parccourus',
+                    data: [550, 400, 590, 350, 380, 450],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        var ctx = document.getElementById('gasoil_consome').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin'],
+                datasets: [{
+                    label: 'gasoil consomé',
+                    data: [120, 90, 130, 100, 120, 85],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    {%endblock%}
+
+</main>
+{%endblock%}

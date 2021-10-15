@@ -1,0 +1,100 @@
+{% extends "tables.html" %}
+{%block title%}
+<title> User Manager </title>
+<style>
+
+    .delete{
+        margin-top: 8px;
+        width: 100px; 
+        background-color: #2a879ee8;
+        color: #fff;
+        border-radius: 5px;
+    }
+    .ajout{
+            margin-top: 8px; 
+            width: 150px;
+            background-color: #fff;
+            color: #2a879ee8;
+            border-radius: 5px;
+        }
+    
+    </style>
+{%endblock%}
+
+
+
+
+
+{%block table%}
+
+<div class="cards">
+    <div class="card-single">
+        <div>
+        <h1>85</h1>
+        <span>Employés</span>
+        </div>
+        <div>
+        <span class="fas fa-users"></span>
+        </div>
+    </div>
+    <!--div class="card-single">
+        <div>
+        <h1>75</h1>
+        <span>Employés sans véhicules</span>
+        </div>
+        <div>
+        <span class="fas fa-users"></span>
+        </div>
+    </div-->
+    <div class="card-single">
+        <div>
+        <h1>10</h1>
+        <span>Chauffeurs</span>
+        </div>
+        <div>
+        <span class="fas fa-users"></span>
+        </div>
+    </div>
+</div>
+
+<table id="myTable" class="table is-striped table-striped"> 
+    <thead>
+        <tr class="table100-head" style="background-color: #2a879ee8 !important;">
+        
+            <!--th class="column5" style="padding-left: 15px;vertical-align: middle;">Identifiant</th-->
+            <th class="column8" style="vertical-align: middle;">Nom Complet</th>
+            <th class="column4" style="vertical-align: middle;">CIN</th>
+            <th class="column4" style="vertical-align: middle;">Telephone</th>
+            <th class="column5" style="vertical-align: middle;">sexe</th>
+            <th class="column6" style="vertical-align: middle;">Poste</th>
+            <th class="column7" style="vertical-align: middle;">Email</th>
+            <th class="column8" style="vertical-align: middle;">Adresse</th>
+            <th class="column2" style="vertical-align: middle;"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for emp in emps %}
+            <tr>
+            
+                <!--td class="column5">{{emp.id}}</td-->
+                <td class="column8">{{emp.lastname.upper() + " " +emp.firstname.capitalize() }}</td>
+                <td class="column4">{{emp.cin}}</td>
+                <td class="column4">{{emp.tel}}</td>
+                <td class="column5">{{emp.gender}}</td>
+                <td class="column6">{{emp.poste}}</td>
+                <td class="column7">{{emp.email}}</td>
+                <td class="column8">{{emp.adresse}}</td>
+                <td class="column2" style="vertical-align: middle;">
+                    <a href="/aff_emp/{{emp.id}}"><input type="submit" value="Afficher" class="btn_login delete"></a>
+                </td>
+            </tr>   
+        {% endfor %}    
+        
+    </tbody>
+</table>
+
+
+{%endblock%}
+
+

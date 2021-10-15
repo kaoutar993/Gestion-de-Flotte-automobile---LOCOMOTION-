@@ -1,0 +1,63 @@
+{% extends "tables.html" %}
+{%block title%}
+<title> User Manager </title>
+<style>
+
+    .delete{
+        margin-top: 8px;
+        width: 100px; 
+        background-color: #2a879ee8;
+        color: #fff;
+        border-radius: 5px;
+    }
+    .ajout{
+            margin-top: 8px; 
+            width: 150px;
+            background-color: #fff;
+            color: #2a879ee8;
+            border-radius: 5px;
+        }
+    
+    </style>
+{%endblock%}
+
+
+
+
+
+{%block table%}
+
+<table id="myTable" class="table is-striped table-striped"> 
+    <thead>
+        <tr class="table100-head" style="background-color: #2a879ee8 !important;">
+        
+            <th class="column8" style="vertical-align: middle;">Nom Complet</th>
+            <th class="column4" style="vertical-align: middle;">Destination de voyage</th>
+            <th class="column5" style="vertical-align: middle;">Date</th>
+            <th class="column6" style="vertical-align: middle;">Kilométrage parcouru</th>
+            <th class="column7" style="vertical-align: middle;">Gasoil consomé</th>
+ 
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in dte %}
+            <tr> 
+            
+                <!--td class="column5">{{emp.id}}</td-->
+                <td class="column8">{{ dte[c].lastname.upper() + " " +dte[c].firstname.capitalize() }}</td>
+                <td class="column4">{{c.destination}}</td>
+                <td class="column5">{{c.date_dest.strftime("%Y-%m-%d")}}</td>
+                <td class="column6">{{c.km_parcouru}}</td>
+                <td class="column7">{{c.gaz_consomme}}</td>
+                
+            </tr>   
+        {% endfor %}    
+        
+    </tbody>
+</table>
+
+
+{%endblock%}
+
+

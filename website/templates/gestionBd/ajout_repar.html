@@ -1,0 +1,20 @@
+
+{% extends "base_logins.html" %}
+{%block t_l%}
+<title> Sign Up </title>  
+<link rel = "stylesheet" href="{{url_for('static',filename='css/login.css')}}">  
+{%endblock%}
+{%block form%}
+<form action="/ajout_repar/{{veh.id}}" method="post">
+
+    <div class="container">  
+        <input type="text" placeholder="Montant" name="Montant" id="Montant" required> 
+        <input type="text" placeholder="Adresse de reparation" name="place" id="place" required> 
+        <input type="date" class="time" placeholder="Date début" name="ddate" id="ddate" required>    
+        <input type="date" class="time" placeholder="Date fin" name="fdate" id="fdate" required> 
+       
+        <input type="submit" value="Enregistrer" class="btn_login"> 
+    </div> 
+</form>
+{%endblock%}  
+

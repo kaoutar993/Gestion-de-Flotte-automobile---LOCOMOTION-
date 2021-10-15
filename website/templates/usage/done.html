@@ -1,0 +1,22 @@
+{% extends "base_menu.html" %}
+{%block t_l%}
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>All Done</title> 
+	<link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="{{url_for('static',filename = 'css/all_done.css')}}" />
+{%endblock%} 
+{%block scriptTables%}
+<main>
+	<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404"></div>
+			<h1>.</h1>
+			<h2>No requests</h2>
+			<p>Done! All the Data user is update !</p>
+			
+			
+			<a href="/">Back to homepage</a>
+		</div>
+	</div>
+</main>{%endblock%}
+

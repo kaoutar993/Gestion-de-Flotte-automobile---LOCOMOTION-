@@ -1,0 +1,22 @@
+{% extends "base_logins.html" %}
+
+{%block t_l%}
+<title> Login </title>  
+<link rel = "stylesheet" href="{{url_for('static',filename='css/login.css')}}">  
+{%endblock%}
+{%block form%}
+<form action="/login" method="post">
+
+    <div class="container">   
+        <input type="text" placeholder="Username Or Email" name="username" id="username" required>    
+        <input type="password" placeholder="Password" name="password" id="password" required>  
+        <input type="submit" value="Login" class="btn_login">
+        <hr class="hr-text" data-content="OR">  
+        <div class="forget">Forgot <a href="#"> password? </a></div>   
+    </div> 
+    <div class="containerr">
+        <div class="forget">Don't have an account?<a href="/signup"> Sign up </a></div> 
+    </div>    
+</form>
+
+{%endblock%}

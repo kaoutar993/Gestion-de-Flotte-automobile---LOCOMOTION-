@@ -1,0 +1,223 @@
+{% extends "base_menu.html" %}
+{%block t_l%}{%endblock%}
+{%block main%} 
+<style>
+
+
+      /* Positionnez la forme Popup */
+      .date-popup {
+      position: relative;
+      text-align: center;
+      
+      }
+      /* Masquez la forme Popup */
+      .form-popup {
+      display: none;
+      position: fixed;
+      left: 45%;
+      top:5%;
+      transform: translate(-45%,5%);
+      border: 2px solid #666;
+      z-index: 9;
+      margin-top: 80px;
+      border-radius: 5px;
+      }
+      /* Styles pour le conteneur de la forme */
+      .form-container {
+      max-width: 300px;
+      padding: 20px;
+      background-color: #fff;
+      
+      }
+      /* Largeur complète pour les champs de saisie */
+      .form-container input[type=text], .form-container input[type=password] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #eee;
+      }
+      /* Quand les entrées sont concentrées, faites quelque chose */
+      .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+      }
+      /* Stylez le bouton de connexion */
+      .form-container .btn {
+      background-color: #8ebf42;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom:10px;
+      opacity: 0.8;
+      }
+      /* Stylez le bouton pour annuler */
+      .form-container .cancel {
+      background-color: #cc0000;
+      }
+      /* Planez les effets pour les boutons */
+      .form-container .btn:hover:hover {
+      opacity: 1;
+      }
+      .time {
+        padding: 12px 20px;
+        width:100%;
+      }
+    
+    </style>
+<link rel = "stylesheet" href="{{url_for('static',filename='css/grides.css')}}">
+
+<main >
+    <div class="col-xs-10 col-sm-6 col-md-6" >
+        <div class="card card-style mb-2" >
+            <div class="card-body" >
+                <div class="chart-container" style="position: relative; background-color: #fff; height: 650px;  border-radius: 5px;">
+                  
+                    <p style="padding-top: 15px;">
+                        <img src="{{url_for('static',filename='img/veh.jpg')}}" width="50px" height="50px" alt="" style="margin-left: 20px; border-radius: 10px;">
+                        <b style="color:black;" > Marque : {{ "  "+ veh.marque +" "+ veh.nom}}</b> 
+                    </p> 
+                    <div  >
+                        <small style="padding-left: 40px;"> <strong style="color:#2a879ee8;">  Matricule : </strong> {{veh.matricule}}</small> <br/>
+                        <small style="padding-left: 40px;"> <strong style="color: #2a879ee8;"> Tyoe de carburant : </strong> {{veh.carburant}}  </small> <br/>
+                        <small style="padding-left: 40px;"> <strong style="color: #2a879ee8;">  Kilométrage parcouru : </strong> {{veh.km_parcouru}} Km </small> <br/> 
+                    </div>
+                    <p style="padding-top: 15px;">
+                        <img src="{{url_for('static',filename='img/rep.png')}}" width="40px" height="40px" alt="" style="margin-left: 20px; border-radius: 10px;">
+                        <b>Reparation</b>
+                    </p>
+                    <div style="padding-top: 10px;" >
+                        <small style="padding-left: 40px;"> 
+                            <strong style="color: #2a879ee8;">Etat :  </strong> 
+                            {% if veh.En_reparation%}
+                                Véhicule en reparation
+                            {%else%}
+                                Véhicule en bon état
+                            {%endif%}
+                        </small> <br/> <br/>
+                        <a href="/repar"><button style="text-align: center ;   margin-left: 110px; width: 300px; height: 40px; border-radius: 5px; background-color: rgb(223, 199, 66);"> Consulter les visites du véhicule </button></a> <br/> <br/>
+                        <a href="/ajout_repar/{{veh.id}}"><button style="text-align: center ;   margin-left: 110px; width: 300px; height: 40px; border-radius: 5px; background-color: rgb(223, 199, 66);"> passer cette véhicule en réparation</button></a>
+                        <small style="padding-left: 40px;"> </small>
+                    </div>
+                    <p style="padding-top: 15px;">
+                        <img src="{{url_for('static',filename='img/assu.png')}}" width="50px" height="50px" alt="" style="margin-left: 20px;">
+                        <b>Assurance</b>
+                    </p> 
+                    <div style="padding-top: 10px;" >
+                        <small style="padding-left: 40px;"> <strong style="color: #2a879ee8;">Nom d'assurance : </strong> {{veh.nom_assu}} </small> <br/>
+                        
+                        <small style="padding-left: 40px;"> <strong style="color: #2a879ee8 ;">Date dernier payement : </strong> {{assu.date_payement.strftime("%Y-%m-%d")}} </small> <br/>
+                        <small style="padding-left: 40px;"> 
+                            <strong style="color: #2a879ee8;">Etat :  </strong> 
+                            {% if veh.etat_assu%}
+                                Non Payante
+                            {%else%}
+                                Payante
+                            {%endif%}
+                        </small> <br/> <br/>
+                        <input type="submit" onclick="openForm_{{veh.id}}()" value=" Changer la date du dernier payement" style="text-align: center ; background-color: #2a879ee8;  margin-left: 110px; width: 300px; height: 40px; border-radius: 5px; background-color: rgb(223, 199, 66);">  
+                        <div class="datein-popup">
+                            <div class="form-popup" id="popupForm_{{veh.id}}">
+                              <form action="/assua/{{veh.id}}" class="form-container" method="post">
+                                <h3>Veuillez Saisir une date </h3>
+                             
+                                <input type="date" class="time" name='date_assu' id='date_assu'>
+                        
+                                <button type="submit" class="btn">Enregistrer</button>
+                                <button type="button" class="btn cancel" onclick="closeForm_{{veh.id}}()">Fermer</button>
+                              </form>
+                            </div>
+                        </div>
+                          <script>
+                            function openForm_{{veh.id}}() {
+                              document.getElementById("popupForm_{{veh.id}}").style.display="block";
+                            }
+                            
+                            function closeForm_{{veh.id}}() {
+                              document.getElementById("popupForm_{{veh.id}}").style.display="none";
+                            }
+                          </script>
+                        <small style="padding-left: 40px;"> </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%if vehm%}
+        <div class="col-xs-10 col-sm-6 col-md-6"  >
+            <div class="card card-style mb-2" >
+                <div class="card-body" >
+                    <div class="chart-container" style="position: relative; background-color: #fff; height: 530px; border-radius: 5px;">
+                        
+                        <div style="text-align: center; padding-top: 20px;">
+                            <img src="{{url_for('static',filename='img/vehm.jpg')}}" width="80px" height="80px" alt="" >
+                            <h3>  Véhicule des Marchandises </h3> <br/> 
+                        </div>
+                        <p style="padding-top: 15px;">
+                            <img src="{{url_for('static',filename='img/chauf.png')}}" width="60px" height="60px" alt="" style="margin-left: 20px; border-radius: 10px;">
+                            <b> Amane Mourad</b> <br/>
+                            <small style="padding-left: 40px;"> Dernier conducteur  </small> <br/> <br/>
+                            <button style="text-align: center ; background-color: #2a879ee8;  margin-left: 150px; width: 200px; height: 40px; border-radius: 5px; color: #fff;"> Voir plus sur le chauffeur </button>
+                        </p> <br/>
+                        <div  >
+                            <b style="padding-left: 40px;">Savoir plus sur le véhicule </b> <br/> <br/>
+                            <button style="text-align: center ;   margin-left: 110px; width: 300px; height: 40px; border-radius: 5px; background-color: rgb(223, 199, 66);"> Afficher l'historique des voyages </button> <br/> <br/>
+                            <button style="text-align: center ;   margin-left: 110px; width: 300px; height: 40px; border-radius: 5px; background-color: rgb(223, 199, 66);"> Afficher l'historique des conducteurs</button>
+                            <small style="padding-left: 40px;"> </small>
+                        </div>
+                        <div style="padding-top: 40px; "></div>
+                            <button style="text-align: center ; background-color:rgba(228, 40, 40, 0.733);   width: 200px; height: 40px; border-radius: 5px; color: #fff;"> Supprimer le véhicule </button> <br/>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div style="padding-top: 50px; padding-left: 100px;">
+                <a href="/supp_veh/{{veh.id}}" style=" padding-left: 150px;"  method="post"><button style="text-align: center ; background-color:red;   width: 200px; height: 40px; border-radius: 5px; color: #fff;"> Supprimer le véhicule </button></a> <br/>
+            </div>
+        </div>
+    {%else%}
+        <div class="col-xs-10 col-sm-6 col-md-6"  >
+            <div class="card card-style mb-2" >
+                <div class="card-body" >
+                    <div class="chart-container" style="position: relative; background-color: #fff; height: 400px; border-radius: 5px;">
+                        
+                        <div style="text-align: center; padding-top: 20px;">
+                            <img src="{{url_for('static',filename='img/veh.jpg')}}" width="80px" height="80px" style="border-radius: 10px;">
+                            <h3>  Véhicule usage personnel </h3> <br/> 
+                        </div>
+                        {%if veha%}
+                            <p style="padding-top: 15px; margin-left: 15px;">
+                                <small style="padding-left: 40px;"> Employé qui posséde le véhucule  </small> 
+                                <small style="color:cornflowerblue ;">  Depuis : {{veha.date_affect}}</small>  <br/><br/> 
+                                <img src="{{url_for('static',filename='img/utilisateur.png')}}" width="60px" height="60px" style="margin-left: 20px; border-radius: 10px;">
+                                <h4 style="margin-left: 25px;">  {{empaa.lastname.upper() +" "+ empaa.firstname}}</h4> <br/>
+                                <!--small style="color:cornflowerblue ;" >{{empaa.poste}}</small-->
+                                <a href="/aff_emp/{{empaa.id}}"><button style="text-align: center ; background-color: #2a879ee8;  margin-left: 150px; width: 200px; height: 40px; border-radius: 5px; color: #fff;"> Voir plus sur l'employé </button></a>
+                            </p> <br/>
+                        {%else%}
+                            <b style="padding-left: 40px; color: #2a879ee8;"> Véhicule libre pour le moment </b> <br/>
+                        {%endif%}
+                        <div  >
+                            <b style="padding-left: 40px;"> </b> <br/> 
+                            <button style="text-align: center ;   margin-left: 110px; width: 300px; height: 40px; border-radius: 5px; background-color: rgb(223, 199, 66);"> Afficher l'historique des affectations </button> <br/> <br/>
+                            <!--button style="text-align: center ;   margin-left: 110px; width: 300px; height: 40px; border-radius: 5px; background-color: rgb(238, 185, 240);"> Afficher </button-->
+                            <small style="padding-left: 40px;"> </small>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div> <br/> <br/> 
+            <div style="padding-top: 40px; padding-left: 100px;"></div>
+                <a href="/supp_veh/{{veh.id}}"  method="post" style=" padding-left: 150px;"><button style="text-align: center ; background-color:red;   width: 200px; height: 40px; border-radius: 5px; color: #fff;"> Supprimer le véhicule </button></a> <br/>
+            </div>
+        </div>
+    {%endif%}
+       
+
+</main>
+{%endblock%}

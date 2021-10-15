@@ -1,0 +1,15 @@
+{% extends "base_logins.html" %}
+{%block t_l%}
+<title> Confirm </title>  
+<link rel = "stylesheet" href="{{url_for('static',filename='css/login.css')}}">  
+{%endblock%}
+{%block form%}
+<form action="{{url}}" method="post">
+
+    <div class="container">  
+        <input type="password" placeholder="Password" name="password" id="password" required>
+        <input type="submit" value="Confirm" class="btn_login"> 
+    </div> 
+
+</form>
+{%endblock%}

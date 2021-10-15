@@ -1,0 +1,54 @@
+
+{% extends "tables.html" %}
+{%block title%}
+<title> User Manager </title>
+
+
+{%endblock%}
+{%block table%}
+
+<table  id="myTable" class="table is-striped table-striped" > 
+    <thead >
+        <tr class="table100-head" style="background-color: #2a879ee8 !important;">
+            <th class="column4" style="vertical-align: middle;">La marque</th>
+            <th class="column8" style="vertical-align: middle;">Edition</th>
+            <th class="column4" style="vertical-align: middle;">Matricule</th>
+            <th class="column4" style="padding-right:10px ;" >Type de Carburant</th>
+            <th class="column6" style="vertical-align: middle; vertical-align: middle;">Kilometrage</th>
+            <th class="column8" style="vertical-align: middle;"> Choisir le véhicule </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for veh in vehs %}
+            {% if veh.id not in veha %}
+                {% if veh.id not in vehm %}
+                    {% if veh.id not in repar %}
+                        <tr>
+                            <td class="column4">{{veh.marque}}</td>
+                            <td class="column8">{{veh.nom}}</td>
+                            <td class="column4" id='matricule'>{{veh.matricule}}</td>
+                            <td class="column4" style="padding-right:10px ;">{{veh.carburant}}</td>
+                            <td class="column6">{{veh.km_parcouru}}</td>
+                            <td class="column8" style="vertical-align: middle; width:250px;">
+                                <a href="/affectation/{{emp.id}}/{{veh.id}}" style="vertical-align: middle; width:200px; padding-left: 25px;"><input type="submit" value="Affecter cette vehicule"  style="vertical-align: middle; width:200px; background-color: goldenrod; border-radius: 6px; "></a>
+                                
+                            </td>               
+                        </tr>   
+                    {%endif%}
+                {%endif%}
+            {%endif%}
+        {% endfor %}    
+        
+    </tbody>
+</table>
+
+
+{%endblock%}
+
+
+
+
+
+
+
+

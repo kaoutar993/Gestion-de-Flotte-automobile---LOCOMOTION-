@@ -1,0 +1,17 @@
+{% extends "errors/errors.html" %}
+{%block title%}<title>Unauthorized</title>{%endblock%}
+{%block link%}<link type="text/css" rel="stylesheet" href="{{url_for('static',filename = 'css/errors.css')}}" />{%endblock%}
+{%block div%}
+	<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404"></div>
+			<h1>401</h1>
+			<h2>Oops! Page Unauthorized</h2>
+			<p>Sorry but the page you trying to access has not been authenticated or has not been authenticated correctly</p>
+			
+			
+			<a href="/">Back to homepage</a>
+		</div>
+	</div>
+{%endblock%}
+

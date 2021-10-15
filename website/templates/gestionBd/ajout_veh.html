@@ -1,0 +1,23 @@
+
+{% extends "base_logins.html" %}
+{%block t_l%}
+<title> Sign Up </title>  
+<link rel = "stylesheet" href="{{url_for('static',filename='css/login.css')}}">  
+{%endblock%}
+{%block form%}
+<form action="/ajout_veh" method="post">
+
+    <div class="container">  
+        <input type="text" placeholder="Marque" name="marque" id="marque" required> 
+        <input type="text" placeholder="Nom" name="nom" id="nom" required> 
+        <input type="text" placeholder="Matricule" name="matricule" id="matricule" required>    
+        <input type="text" placeholder="Carburant" name="carburant" id="carburant" required> 
+        <input type="text" placeholder="Kilometrage" name="km_parcouru" id="km_parcouru" required> 
+        <input type="text" placeholder="Statut de vehicule" name="En_reparation" id="En_reparation" required> 
+        <input type="text" placeholder="Nom d'assurance" name="assu" id="assu" required> 
+        <input type="text" placeholder="L'etat d'assurance" name="etat_assu" id="etat_assu" required>
+        <input type="submit" value="Enregistrer" class="btn_login"> 
+    </div> 
+</form>
+{%endblock%}  
+

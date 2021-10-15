@@ -1,0 +1,14 @@
+{% extends "errors/errors.html" %}
+{%block title%}<title>Forbidden</title>{%endblock%}
+{%block link%}<link type="text/css" rel="stylesheet" href="{{url_for('static',filename = 'css/errors.css')}}" />{%endblock%}
+{%block div%}
+	<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404"></div>
+			<h1>403</h1>
+			<h2>Oops! Forbidden</h2>
+			<p>Sorry but you do not have sufficient permissions to access this Page.</p>
+			<a href="/">Back to homepage</a>
+		</div>
+	</div>
+{%endblock%}

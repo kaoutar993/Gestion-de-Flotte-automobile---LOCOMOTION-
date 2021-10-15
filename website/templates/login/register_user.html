@@ -1,0 +1,21 @@
+{% extends "base_logins.html" %}
+{%block t_l%}
+<title> Register User </title>  
+<link rel = "stylesheet" href="{{url_for('static',filename='css/login.css')}}">  
+{%endblock%}
+{%block form%}
+<form action="/register" method="post">
+
+    <div class="container">  
+        <input type="email" placeholder="Email" name="email" id="email" required>
+        <input type="text" placeholder="Username" name="username" id="username" required>    
+        <input type="text" placeholder="Firstname" name="firstname" id="firstname" required>
+        <input type="text" placeholder="Lastname" name="lastname" id="lastname" required>
+        <input type="text" placeholder="CIN" name="cin" id="cin" required> 
+        <input type="text" placeholder="Poste" name="poste" id="poste" required> 
+        <input type="password" placeholder="Password" name="password" id="password" required>
+        <input type="submit" value="Save User" class="btn_login">  
+    </div> 
+
+</form>
+{%endblock%}

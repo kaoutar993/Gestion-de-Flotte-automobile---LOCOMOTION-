@@ -1,0 +1,40 @@
+
+
+{% extends "tables.html" %}
+{%block title%}
+<title>  Les vehicules en reparation </title>
+
+{%endblock%}
+
+{%block table%}
+<table id="myTable" class="table is-striped table-striped">
+    <thead>
+        <tr class="table100-head" style="background-color: #2a879ee8 !important;" >
+        
+            <th class="column5" style="padding-left: 15px;">Matricule</th>
+            <th class="column4">Montant</th>
+            <th class="column4">Place de reparation</th>
+            <th class="column4">Date de debut</th>
+            <th class="column4">Date de fin</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for rep in dtr %}
+            <tr>
+                <td class="column5">{{dtr[rep].matricule}}</td>
+                <td class="column4">{{rep.montant}}</td>
+                <td class="column4">{{rep.place}}</td>
+                <td class="column4">{{rep.date_debut.strftime("%d %b %Y")}}</td>
+                <td class="column4">{{rep.date_fin.strftime("%d %b %Y")}}</td>
+                              
+            </tr>   
+        {% endfor %}    
+        
+    </tbody>
+</table>
+
+
+{%endblock%}
+
+

@@ -1,0 +1,132 @@
+{% extends "tables.html" %}
+{%block title%}
+<title> User Manager </title>
+<style>
+
+.btn_login {   
+           
+         width: 75%;  
+          color: rgb(255, 255, 255);
+          font-weight: bold;
+          padding-left: 15px;
+          padding-right: 15px;
+          border-radius: 5px;
+            
+          margin-left: 15px;   
+          border: black;   
+          cursor: pointer;   
+           }
+.delete{
+    margin-top: 8px; 
+    background-color: rgba(255, 0, 0, 0.897);
+}
+.update{
+    background-color: rgba(15, 155, 15, 0.884);
+}
+.delete:disabled{
+    margin-top: 8px; 
+    color: rgba(0, 0, 0, 0) !important;
+    background-color: rgba(255, 0, 0, 0) !important;
+}
+.update:disabled{
+    color: rgba(0, 0, 0, 0) !important;
+    background-color: rgba(255, 0, 0, 0) !important;
+}
+</style>
+{%endblock%}
+
+
+
+
+
+{%block table%}
+<table id="myTable1" class="table is-striped table-striped"> 
+    <thead>
+        <tr class="table100-head" style="background-color: #2a879ee8 !important;">
+            <td class="column0"><input style="margin-top: 18px;" onclick='checkboxfunction()' onchange='checkboxfunction()' type="checkbox" id="all" name="all" value="all" class="all"></td>
+            <th class="column1" style="vertical-align: middle;">Nom du compte</th>
+            <th class="column4" style="vertical-align: middle;">Nom d'utilisateur</th>
+            <th class="column5" style="vertical-align: middle;">CIN</th>
+            <th class="column6" style="vertical-align: middle;">Poste</th>
+            <th class="column7" style="vertical-align: middle;">Email</th>
+            <th class="column8" style="vertical-align: middle;">Inscrit à</th>
+            <td class="column2" style="vertical-align: middle;">
+                <a href="#"><input type="submit" value="Update" class="btn_login update" disabled></a>
+                <a href="#"><input type="submit" value="Delete" class="btn_login delete" disabled></a>
+            </td>
+            
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in dtA %}
+            <tr>
+                 
+                <td class="column0" style="vertical-align: middle;">
+                    {%if dtA[user].poste != "root" %}
+                    <input type="checkbox" type="checkbox" id="single" name="single" value="single" class="single">
+                    {%endif%}
+                </td>
+                <td class="column1" style="vertical-align: middle;">{{user.username}}</td>
+                <td class="column4" style="vertical-align: middle;">{{dtA[user].lastname.upper() + " " +dtA[user].firstname.capitalize() }}</td>
+                <td class="column5" style="vertical-align: middle;">{{dtA[user].cin}}</td>
+                <td class="column6" style="vertical-align: middle;">{{dtA[user].poste}}</td>
+                <td class="column7" style="vertical-align: middle;">{{dtA[user].email}}</td>
+                <td class="column8" style="vertical-align: middle;">{{user.submited_at.strftime("%d %b %Y | %H:%M:%S")}}</td>
+                <td class="column2" style="vertical-align: middle;">
+                    {%if dtA[user].poste != "root" %}
+
+                        <input onclick="send('/op_approve/{{user.username}}')" type="submit" value="Confirmer" class="btn_login update">
+                        <input onclick="send('/op_delete/{{user.username}}')" type="submit" value="Supprimer" class="btn_login delete">
+                        
+                
+
+                    {%endif%}
+                </td>
+                
+            </tr>   
+        {% endfor %}    
+        
+    </tbody>
+</table>
+<script>
+
+    function checkboxfunction(){
+        checkboxes = document.getElementsByName("single");
+        if (document.getElementById('all').checked){
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = true;
+            }
+        }else{
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = false;
+            }
+        }
+    }
+    function monitor(){
+        checkboxes = document.getElementsByName("single");
+    }
+
+    function send(param) {
+        console.log(param)
+        req = $.ajax({
+            url : param,
+            type : 'GET',
+        });
+
+        req.done(function(data) {
+
+            //$("html").fadeOut(1000).fadeIn(1000);
+            $("html").html(data);
+            //location.reload();
+
+        });
+
+
+        }
+
+</script>
+
+{%endblock%}
+
+

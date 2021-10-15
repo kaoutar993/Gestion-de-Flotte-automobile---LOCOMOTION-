@@ -1,0 +1,21 @@
+{% extends "base_logins.html" %}
+{%block t_l%}
+<title> Update Infos </title>  
+<link rel = "stylesheet" href="{{url_for('static',filename='css/login.css')}}">  
+{%endblock%}
+{%block form%}
+<form action="/edit_profile/{{parm}}" method="post">
+
+    <div class="container">  
+        {%if username_==True%} 
+            <input type="text" placeholder="New Username" name="username" id="username" required>
+        {%else%}
+            <input type="password" placeholder="Old Password" name="password0" id="password0" required>
+            <input type="password" placeholder="New Password" name="password" id="password" required>
+            <input type="password" placeholder="Retry Password" name="password2" id="password2" required> 
+        {%endif%}
+        <input type="submit" value="Update" class="btn_login">
+    </div> 
+
+</form>
+{%endblock%}

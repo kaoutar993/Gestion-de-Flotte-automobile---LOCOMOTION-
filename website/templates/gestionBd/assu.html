@@ -1,0 +1,137 @@
+
+{% extends "tables.html" %}
+{%block title%}
+<title>  Assurance </title>
+<style>
+
+    .delete{
+        margin-top: 8px; 
+        width: 150px;
+        background-color: #2a879ee8;
+        color: #fff;
+        border-radius: 5px;
+    }
+  
+
+      /* Positionnez la forme Popup */
+      .date-popup {
+      position: relative;
+      text-align: center;
+      
+      }
+      /* Masquez la forme Popup */
+      .form-popup {
+      display: none;
+      position: fixed;
+      left: 45%;
+      top:5%;
+      transform: translate(-45%,5%);
+      border: 2px solid #666;
+      z-index: 9;
+      margin-top: 80px;
+      border-radius: 5px;
+      }
+      /* Styles pour le conteneur de la forme */
+      .form-container {
+      max-width: 300px;
+      padding: 20px;
+      background-color: #fff;
+      
+      }
+      /* Largeur complète pour les champs de saisie */
+      .form-container input[type=text], .form-container input[type=password] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 22px 0;
+      border: none;
+      background: #eee;
+      }
+      /* Quand les entrées sont concentrées, faites quelque chose */
+      .form-container input[type=text]:focus, .form-container input[type=password]:focus {
+      background-color: #ddd;
+      outline: none;
+      }
+      /* Stylez le bouton de connexion */
+      .form-container .btn {
+      background-color: #8ebf42;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom:10px;
+      opacity: 0.8;
+      }
+      /* Stylez le bouton pour annuler */
+      .form-container .cancel {
+      background-color: #cc0000;
+      }
+      /* Planez les effets pour les boutons */
+      .form-container .btn:hover:hover {
+      opacity: 1;
+      }
+      .time {
+        padding: 12px 20px;
+        width:100%;
+      }
+    
+    </style>
+{%endblock%}
+
+
+
+
+
+{%block table%}
+<table id="myTable" class="table is-striped table-striped">
+    <thead>
+        <tr class="table100-head" style="background-color: #2a879ee8 !important;" >
+        
+            <th class="column5" style="padding-left: 15px;">Matricule</th>
+            <th class="column5">Nom d'assurance</th>
+            <th class="column5">Montant</th>
+            <th class="column4">Date de payement</th>
+            <td class="column2" style="vertical-align: middle;"></td>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for assu in vh %}
+            <tr>           
+                <td class="column5">{{vh[assu].matricule}}</td>
+                <td class="column5">{{vh[assu].nom_assu}}</td>
+                <td class="column5">{{assu.montant}}</td>
+                <td class="column4">{{assu.date_payement.strftime("%Y-%m-%d")}}</td>
+                <td class="column2" style="vertical-align: middle;">
+                    <input type="submit" onclick="openForm_{{assu.id_veh}}()" value="Modifier la date" class="btn_login delete">
+                    <div class="datein-popup">
+                        <div class="form-popup" id="popupForm_{{assu.id_veh}}">
+                          <form action="/assu/{{assu.id_veh}}" class="form-container" method="post">
+                            <h3>Veuillez Saisir une date </h3>
+                         
+                            <input type="date" class="time" name='date_assu' id='date_assu'>
+                    
+                            <button type="submit" class="btn">Enregistrer</button>
+                            <button type="button" class="btn cancel" onclick="closeForm_{{assu.id_veh}}()">Fermer</button>
+                          </form>
+                        </div>
+                    </div>
+                      <script>
+                        function openForm_{{assu.id_veh}}() {
+                          document.getElementById("popupForm_{{assu.id_veh}}").style.display="block";
+                        }
+                        
+                        function closeForm_{{assu.id_veh}}() {
+                          document.getElementById("popupForm_{{assu.id_veh}}").style.display="none";
+                        }
+                      </script>
+                 </td>
+                
+            </tr>   
+        {% endfor %}    
+        
+    </tbody>
+</table>
+
+
+{%endblock%}

@@ -1,0 +1,136 @@
+
+{% extends "tables.html" %}
+{%block title%}
+<title> User Manager </title>
+<style>
+
+.delete{
+    margin-top: 8px;
+    
+    width: 100px; 
+    background-color: #2a879ee8;
+    color: #fff;
+    border-radius: 5px;
+}
+.ajout{
+        margin-top: 8px; 
+        width: 150px;
+        background-color: #fff;
+        color: #2a879ee8;
+        border-radius: 5px;
+    }
+
+</style>
+
+{%endblock%}
+
+
+
+
+
+{%block table%}
+
+<div class="cards">
+    <div class="card-single">
+        <div>
+        <h1>30</h1>
+        <span>véhicules affectés</span>
+        </div>
+        <div>
+        <span class="fas fa-car-side"></span>
+        </div>
+    </div>
+    <div class="card-single">
+        <div>
+        <h1>20</h1>
+        <span>véhiculess libre</span>
+        </div>
+        <div>
+        <span class="fas fa-car-side"></span>
+        </div>
+    </div>
+</div>
+
+<table  id="myTable" class="table is-striped table-striped" > 
+    <thead >
+        <tr class="table100-head" style="background-color: #2a879ee8 !important;">
+            <!--td class="mlm column0" style="vertical-align: middle;">
+                <input onclick='checkboxfunction()' onchange='checkboxfunction()' type="checkbox" id="all" name="all" value="all" class="all">
+            </td-->
+            <!--th class="column5" style="vertical-align: middle;">Identifiant</th-->
+            <th class="column4" style="vertical-align: middle;">La marque</th>
+            <th class="column8" style="vertical-align: middle;">Edition</th>
+            <th class="column4" style="vertical-align: middle;">Matricule</th>
+            <th class="column4" style="padding-right:10px ;" >Type de Carburant</th>
+            <th class="column6" style="vertical-align: middle; vertical-align: middle;">Kilometrage</th>
+            <th class="column8" style="vertical-align: middle;">Statut</th>
+            <th class="column7" style="padding-right:20px ; vertical-align: middle;">Etat d'assurance</th>
+            <th class="column8" style="vertical-align: middle;">
+                <a href="/ajout_veh" ><input type="submit" value="Ajouter un vehicule" class="btn_login ajout"></a>
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for veh in vehs %}
+            <tr>
+                <!--td class="column0"><input type="checkbox" type="checkbox" id="single" name="single" value="single" class="single"></td-->
+                <!--td class="column5">{{veh.id}}</td-->
+                <td class="column4">{{veh.marque}}</td>
+                <td class="column8">{{veh.nom}}</td>
+                <td class="column4">{{veh.matricule}}</td>
+                <td class="column4" style="padding-right:10px ;">{{veh.carburant}}</td>
+                <td class="column6">{{veh.km_parcouru}}</td>
+                <td class="column8">
+                    {% if veh.En_reparation %}
+                        En Reparation
+                    {%else%}
+                        Fonctionnelle
+                    {%endif%}
+                </td>
+                <td class="column7" style="padding-right:20px ;">
+                    {% if veh.etat_assu%}
+                        non payante
+                    {%else%}
+                        payante
+                        
+                    {%endif%}
+                </td>
+                
+                <td class="column8" style="vertical-align: middle;">
+                    <a href="/aff_veh/{{veh.id}}"><input type="submit" value="Afficher" class="btn_login delete"></a>
+                </td>
+                
+                
+            </tr>   
+        {% endfor %}    
+        
+    </tbody>
+</table>
+<script>
+
+    function checkboxfunction(){
+        checkboxes = document.getElementsByName("single");
+        if (document.getElementById('all').checked){
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = true;
+            }
+        }else{
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = false;
+            }
+        }
+    }
+
+</script>
+
+
+{%endblock%}
+
+
+
+
+
+
+
+
